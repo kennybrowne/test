@@ -16,9 +16,11 @@
 
         function parentListener(){
             document.addEventListener('message', function(event){
+            debugger
                 window.parentLocation = event.data
                 console.log(event.data)
             }, false);
+            console.log('parentListener')
         }
 
         function FireEvent() {
