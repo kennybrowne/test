@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>Test JS event</title>
+    <script>
+        function HandlePhaserEvent(event) {
+            document.getElementById('output').innerHTML = event.detail.message
+            console.log('HandlePhaserEvent')
+            console.log(event)
+        }
+
+        function AssignListeners() {
+            var outputArea = document.getElementById('output');
+            outputArea.addEventListener('PhaserEvent', HandlePhaserEvent, false);
+            console.log('AssignListeners')
+        }
+
+        function parentListener(){
+            document.addEventListener('message', function(event){
+                window.parentLocation = event.data
+                console.log(event.data)
+            }, false);
+        }
+
+        function FireEvent() {
+            document.getElementById('output').dispatchEvent(new CustomEvent("PhaserEvent",
+                {
+                    detail:
+                        {
+                            message: "Phasers Fired at: " + Date.now(),
+                            time: new Date()
+                        },
+                    bubbles: true,
+                    cancelable: true
+                }
+            ));
+            window.parent.postMessage('I am so cool', window.parentLocation);
+            // window.parent.postMessage('I am so cool', '*');
+            console.log('FireEvent')
+        }
+
+        function init() {
+            AssignListeners();
+            console.log("assigned");
+            parentListener()
+        }
+    </script>
+</head>
+<body onload="init()">
+<button onclick="FireEvent()">Fire Event!</button><br/>
+<p id="output"></p>
+</body>
+</html>
