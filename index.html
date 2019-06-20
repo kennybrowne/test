@@ -15,8 +15,9 @@
         }
 
         function parentListener(){
-            document.addEventListener('message', function(event){
-            debugger
+            window.addEventListener('message', function(event){
+                console.log('in event')
+                console.log(event)
                 window.parentLocation = event.data
                 console.log(event.data)
             }, false);
