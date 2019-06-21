@@ -19,6 +19,8 @@
                 console.log('in event')
                 console.log(event)
                 window.parentLocation = event.data
+                var outputArea = document.getElementById('parentlocation');
+                outputArea.innerHTML = event.data
                 console.log(event.data)
             }, false);
             console.log('parentListener')
@@ -50,6 +52,7 @@
 </head>
 <body onload="init()">
 <button onclick="FireEvent()">Fire Event!</button><br/>
+<p id="parentlocation"></p>
 <p id="output"></p>
 </body>
 </html>
